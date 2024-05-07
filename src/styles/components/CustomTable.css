@@ -1,0 +1,7 @@
+.custom_table .MuiTableHead-root .MuiTableRow-root{
+    background: var(--primary);
+}
+
+.custom_table .MuiTableHead-root .MuiTableRow-root th{
+    color: #ffffff;
+}

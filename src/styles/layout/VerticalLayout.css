@@ -1,0 +1,11 @@
+.v_layout {
+  display: flex;
+}
+
+.v_layout .layout_header {
+  background: var(--header);
+}
+
+.v_layout .layout_drawer .MuiDrawer-paper {
+  background: var(--sidebar);
+}
