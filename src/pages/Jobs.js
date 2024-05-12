@@ -3,6 +3,7 @@ import { Box, Pagination } from "@mui/material";
 
 import Layout from "../layout/Layout";
 import JobCard from "../components/Card/JobCard";
+import { getJobs } from "../api/jobs/JobServices";
 
 const data = [
   {
@@ -118,17 +119,22 @@ const data = [
 
 const Jobs = () => {
   const [page, setPage] = useState(1);
-  const [jobs, setJobs] = useState()
+  const [jobs, setJobs] = useState([]);
 
   const pageChangeHandler = (a, page) => {
     setPage(page);
   };
+  const getAllJobs =async() => {
+      const job = await getJobs();
+      setJobs([...job]);
+  }
 
   useEffect(() => {
+    getAllJobs();
     const startIndex = (page - 1) * 5
     const endIndex = 5 * page
 
-    let tempData = data.slice(startIndex, endIndex)
+    let tempData = jobs.slice(startIndex, endIndex)
     setJobs(tempData)
   },[page])
 
