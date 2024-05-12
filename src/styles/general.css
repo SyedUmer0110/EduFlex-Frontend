@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.apply_now_btn{
+  border: 1px solid var(--primary) !important;
+  background: transparent !important;
+  color: var(--primary) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  padding: 8px 16px !important;
+}
+
+.apply_now_btn:hover{
+  color: #fff !important;
+  background: var(--primary) !important;
+}

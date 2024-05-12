@@ -20,6 +20,7 @@ import { FaUserCheck } from "react-icons/fa6";
 import { BsFileRuled } from "react-icons/bs";
 import { SiGoogleclassroom } from "react-icons/si";
 import { MdLogout } from "react-icons/md";
+import { TbWorldSearch } from "react-icons/tb";
 
 const VerticalLayout = ({ children }) => {
   const navigate = useNavigate();
@@ -36,6 +37,8 @@ const VerticalLayout = ({ children }) => {
       setPageTitle("Attendance");
     } else if (window.location.pathname === "/marks") {
       setPageTitle("Marks");
+    } else if (window.location.pathname === "/jobs") {
+      setPageTitle("Jobs");
     }
   }, [window.location.pathname]);
 
@@ -133,6 +136,7 @@ const VerticalLayout = ({ children }) => {
             },
             { name: "Attendance", route: "/attendance", icon: <FaUserCheck /> },
             { name: "Marks", route: "/marks", icon: <BsFileRuled /> },
+            { name: "Jobs", route: "/jobs", icon: <TbWorldSearch /> },
             {
               name: "Settings",
               route: "/settings",

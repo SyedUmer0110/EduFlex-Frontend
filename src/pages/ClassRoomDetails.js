@@ -1,12 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 
 import Layout from "../layout/Layout";
 import BookImage from "../assets/book_illustration.png";
 import AnnouncementCard from "../components/Card/AnnouncementCard";
+import { getClassroomStudents } from "../api/classroom/ClassroomServices";
 
 const ClassRoomDetails = () => {
   const [value, setValue] = useState("0");
+
+  const [studentList, setStudentList] = useState(null);
+
+  const getStudents = async () => {
+    const data = await getClassroomStudents();
+    setStudentList([...data]);
+  };
+
+  useEffect(() => {
+    if(value == 2){
+      getStudents();
+    }
+  }, [value]);
 
   const handleChange = (event, newValue) => {
     console.log("handle change", newValue);
@@ -14,7 +28,6 @@ const ClassRoomDetails = () => {
   };
 
   const TabPanel = (props) => {
-    console.log("inside tab panel");
     const { children, value, index, ...other } = props;
 
     return (
@@ -79,6 +92,10 @@ const ClassRoomDetails = () => {
                 </Typography>
               </Box>
               <img src={BookImage} style={{ width: "400px", height: "auto" }} />
+            </Box>
+
+            <Box>
+              
             </Box>
 
             <Box
@@ -173,7 +190,7 @@ const ClassRoomDetails = () => {
                     fontWeight: 600,
                   }}
                 >
-                  60 students
+                  {studentList?.length} students
                 </Typography>
               </Box>
 
@@ -184,7 +201,7 @@ const ClassRoomDetails = () => {
                   rowGap: "1rem",
                 }}
               >
-                {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1]?.map(() => (
+                {studentList && studentList?.map((item) => (
                   <Box
                     sx={{
                       display: "flex",
@@ -209,7 +226,7 @@ const ClassRoomDetails = () => {
                     >
                       T
                     </Box>
-                    <Typography>Jhon Doe</Typography>
+                    <Typography sx={{textTransform: 'capitalize'}}>{item?.personal_info?.full_name}</Typography>
                   </Box>
                 ))}
               </Box>

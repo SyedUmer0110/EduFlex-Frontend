@@ -6,6 +6,7 @@ import Attendance from "../pages/Attendance";
 import Marks from "../pages/Marks";
 import ClassRoom from "../pages/ClassRoom";
 import ClassRoomDetails from "../pages/ClassRoomDetails";
+import Jobs from "../pages/Jobs";
 
 const Routers = () => {
   return (
@@ -17,6 +18,7 @@ const Routers = () => {
         <Route path="/classrooms/:id" element={<ClassRoomDetails />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/marks" element={<Marks />} />
+        <Route path="/jobs" element={<Jobs />} />
       </Routes>
     </BrowserRouter>
   );

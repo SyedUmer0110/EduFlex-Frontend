@@ -74,7 +74,7 @@ const Dashboard = () => {
                     <Typography sx={{ fontSize: "14px", fontWeight: 600 }}>
                       Roll No:
                     </Typography>
-                    <Typography sx={{ fontSize: "14px" }}>20k-1068</Typography>
+                    <Typography sx={{ fontSize: "14px" }}>{student?.id}</Typography>
                   </Box>
                 </Grid>
                 <Grid item xs={6} md={4}>

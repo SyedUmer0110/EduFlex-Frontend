@@ -10,7 +10,8 @@ export const studentLogin = async(payload, navigate) => {
           toast.success("Login Successfully");
           setTimeout(() => {
             const decodedPayload = jwtDecode(res?.data?.token, { payload: true });
-            // console.log("decoded token", decodedPayload);
+            console.log("res?.data?.token", res?.data?.token);
+            console.log("decoded token", decodedPayload);
             const role = decodedPayload?.authorities?.[0]?.authority
             localStorage.setItem("role", role)
             localStorage.setItem("token", res?.data?.token);
