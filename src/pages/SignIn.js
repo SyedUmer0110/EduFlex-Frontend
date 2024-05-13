@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import logo  from "../assets/EduFlexConnect.png";
 import { publicAPI } from "../config/Constants";
 import { studentLogin } from "../api/auth/AuthServices";
 import Notification from "../components/CustomNotification/Notification";
@@ -52,7 +52,8 @@ const SignIn = () => {
         sm={4}
         md={7}
         sx={{
-          backgroundImage: "url(https://source.unsplash.com/random?wallpapers)",
+          
+          backgroundImage: "url(https://img.freepik.com/free-photo/front-view-stacked-books-graduation-cap-open-book-education-day_23-2149241017.jpg?t=st=1715591386~exp=1715594986~hmac=9448f2e21f4442a25af2566aa5ffe651fe163c47ca1534e5a339835225a02f21&w=740)",
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
@@ -72,8 +73,8 @@ const SignIn = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            {/* <LockOutlinedIcon /> */}
+          <Avatar sx={{width: 350, height: 350, bgcolor: 'primary.main'}}>
+            <img src={logo} alt="Avatar"/>
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
@@ -112,7 +113,7 @@ const SignIn = () => {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, background: "var(--primary)" }}
+              sx={{ mt: 3, mb: 2, background: '#004AAD' }}
               onClick={() => handleSubmit()}
             >
               Sign In
