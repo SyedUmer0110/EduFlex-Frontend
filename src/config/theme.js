@@ -11,5 +11,5 @@ export const dark = {
   secondary: "",
   background: "rgb(20, 25, 30)",
   sidebar: "#14191e",
-  header: "rgba(25,30,35, 0.9)",
+  header: "rgba(255, 255, 255, 0.9)",
 };

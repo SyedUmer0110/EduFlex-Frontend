@@ -25,3 +25,26 @@ code {
   color: #fff !important;
   background: var(--primary) !important;
 }
+
+.border_btn{
+  border: 1px solid var(--primary) !important;
+  background: transparent !important;
+  color: var(--primary) !important;
+  font-size: 12px !important;
+}
+
+.border_btn_active{
+  background: var(--primary) !important;
+  color: #fff !important;
+  font-size: 12px !important;
+}
+
+.comment_input{
+  width: 80%;
+  font-size: 16px;
+  border: none;
+}
+
+.comment_input:focus-visible{
+  outline: none !important;
+}
