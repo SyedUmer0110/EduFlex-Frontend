@@ -7,6 +7,9 @@ import Marks from "../pages/Marks";
 import ClassRoom from "../pages/ClassRoom";
 import ClassRoomDetails from "../pages/ClassRoomDetails";
 import Jobs from "../pages/Jobs";
+import Scholarships from "../pages/Scholarships";
+import SocietyUpdates from "../pages/SocietyUpdates";
+import GeneralAnnouncement from "../pages/GeneralAnnouncement";
 
 const Routers = () => {
   return (
@@ -19,6 +22,11 @@ const Routers = () => {
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/marks" element={<Marks />} />
         <Route path="/jobs" element={<Jobs />} />
+        <Route path="/scholarships" element={<Scholarships />} />
+        <Route path="/updates" element={<SocietyUpdates />} />
+        <Route path="/announcements" element={<GeneralAnnouncement />} />
+
+
       </Routes>
     </BrowserRouter>
   );

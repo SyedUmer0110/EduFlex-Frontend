@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import ApplyForm from "./ApplyForm";
 import { downloadApplications } from "../../api/jobs/JobServices";
-import { attachToken } from "../../config/Constants";
+import { attachToken, base_url } from "../../config/Constants";
 
 // {
 //     "id": 1,
@@ -28,7 +28,7 @@ const JobCard = ({ data }) => {
     const token = localStorage.getItem('token');
     try {
      
-      const response = await fetch(`http://localhost:8080/api/jobs/download/${data?.id}`, {
+      const response = await fetch(`${base_url}/api/jobs/download/${data?.id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/zip',

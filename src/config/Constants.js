@@ -19,3 +19,12 @@ export const attachToken = async () => {
   privateAPI.defaults.headers.common.Authorization = `Bearer ${jwt}`
 //   // console.log("Token Attached");
 }
+
+export const getDate = (timestamp) => {
+  
+  const dateTime = new Date(timestamp);
+  const date = dateTime.toISOString().slice(0, 10);
+  
+  return date; // Output: "2024-05-07"
+  
+}
