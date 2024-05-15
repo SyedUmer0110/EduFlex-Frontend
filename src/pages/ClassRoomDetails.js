@@ -1,26 +1,67 @@
 import React, { useEffect, useState } from "react";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { useLocation, useParams } from "react-router-dom";
 
 import Layout from "../layout/Layout";
 import BookImage from "../assets/book_illustration.png";
 import AnnouncementCard from "../components/Card/AnnouncementCard";
-import { getClassroomStudents } from "../api/classroom/ClassroomServices";
+import {
+  getClassroomAnnouncements,
+  getClassroomContent,
+  getClassroomStudents,
+} from "../api/classroom/ClassroomServices";
+
+const dummyAnnouncements = [
+  {
+    id: 1,
+    content: 'Teacher Uploaded a new material: Lecture Slides 7',
+  },
+  {
+    id: 2,
+    content: 'Teacher Uploaded a new material: Lecture Slides 7',
+  },
+  {
+    id: 3,
+    content: 'Teacher Uploaded a new material: Lecture Slides 7',
+  },
+]
 
 const ClassRoomDetails = () => {
+  const { id } = useParams();
+  const { state } = useLocation();
+  console.log("state", state);
   const [value, setValue] = useState("0");
 
+  const [announcements, setAnnouncements] = useState(null)
   const [studentList, setStudentList] = useState(null);
+  const [content, setContent] = useState(null);
 
   const getStudents = async () => {
-    const data = await getClassroomStudents();
+    const data = await getClassroomStudents(id);
     setStudentList([...data]);
   };
 
+  const getContent = async () => {
+    const data = await getClassroomContent(id);
+    console.log("data", data);
+    setContent(data);
+  };
+
+  const getAnnouncements = async () => {
+    // const data = await getClassroomAnnouncements(id);
+    // console.log("data", data);
+    setAnnouncements(dummyAnnouncements)
+  };
+
   useEffect(() => {
-    if(value == 2){
+    if (value == 0) {
+      getAnnouncements();
+    } else if (value == 1) {
+      getContent();
+    } else if (value == 2) {
       getStudents();
     }
-  }, [value]);
+  }, [value, id]);
 
   const handleChange = (event, newValue) => {
     console.log("handle change", newValue);
@@ -88,15 +129,13 @@ const ClassRoomDetails = () => {
                     paddingBottom: "1rem",
                   }}
                 >
-                  KUDCS-MP-2021-BSCS-DAA
+                  {state?.data?.course?.course_name}
                 </Typography>
               </Box>
               <img src={BookImage} style={{ width: "400px", height: "auto" }} />
             </Box>
 
-            <Box>
-              
-            </Box>
+            <Box></Box>
 
             <Box
               sx={{
@@ -106,8 +145,8 @@ const ClassRoomDetails = () => {
                 rowGap: "1rem",
               }}
             >
-              {[1, 1, 1, 1, 1]?.map(() => (
-                <AnnouncementCard />
+              {announcements?.map((item) => (
+                <AnnouncementCard data={item} />
               ))}
             </Box>
           </Box>
@@ -190,7 +229,7 @@ const ClassRoomDetails = () => {
                     fontWeight: 600,
                   }}
                 >
-                  {studentList?.length} students
+                  {studentList?.length || 0} students
                 </Typography>
               </Box>
 
@@ -201,34 +240,37 @@ const ClassRoomDetails = () => {
                   rowGap: "1rem",
                 }}
               >
-                {studentList && studentList?.map((item) => (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      columnGap: "1rem",
-                      borderBottom: "1px solid #5f6368",
-                      padding: "0 1rem 1rem 1rem",
-                    }}
-                  >
+                {studentList &&
+                  studentList?.map((item) => (
                     <Box
                       sx={{
-                        background: "#1e8e3e",
-                        width: "max-content",
-                        borderRadius: "50%",
-                        width: "35px",
-                        height: "35px",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center",
-                        color: "white",
+                        columnGap: "1rem",
+                        borderBottom: "1px solid #5f6368",
+                        padding: "0 1rem 1rem 1rem",
                       }}
                     >
-                      T
+                      <Box
+                        sx={{
+                          background: "#1e8e3e",
+                          width: "max-content",
+                          borderRadius: "50%",
+                          width: "35px",
+                          height: "35px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "white",
+                        }}
+                      >
+                        T
+                      </Box>
+                      <Typography sx={{ textTransform: "capitalize" }}>
+                        {item?.personal_info?.full_name}
+                      </Typography>
                     </Box>
-                    <Typography sx={{textTransform: 'capitalize'}}>{item?.personal_info?.full_name}</Typography>
-                  </Box>
-                ))}
+                  ))}
               </Box>
             </Box>
           </Box>

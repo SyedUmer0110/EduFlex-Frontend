@@ -16,10 +16,13 @@ import { privateAPI, publicAPI } from "../../config/Constants";
 
 
 const ClassCard = ({ data, onClickFn }) => {
+  console.log('data', data)
+  const randomNumber = Math.floor(Math.random() * 3)
+
   const navigate = useNavigate();
-  let resizedName = data?.className?.split("").splice(0, 16);
+  let resizedName = data?.course?.course_name?.split("").splice(0, 16);
   resizedName =
-    resizedName?.length > 15 ? `${resizedName.join("")}...` : resizedName;
+    resizedName?.length > 15 ? `${resizedName.join("")}...` : resizedName;  
     
   const getClasses = async () => {
     try {
@@ -34,14 +37,14 @@ const ClassCard = ({ data, onClickFn }) => {
   return (
     // <Card width>
     // <Card sx={{ minWidth: 300 }} onClick={() => getClasses()}>
-    <Card sx={{ minWidth: 300, cursor: 'pointer' }} onClick={() => navigate('/classrooms/1234567')}>
+    <Card sx={{ minWidth: 300, cursor: 'pointer' }} onClick={() => navigate(`/classrooms/${data?.classroom_id || data?.elective_classroom_id}`, { state: { data: data  } })}>
       {/* <CardMedia
             sx={{ height: 140 }}
             image="/static/images/cards/contemplative-reptile.jpg"
             title="green iguana"
           /> */}
       <CardContent sx={{ padding: "0" }}>
-        <Box sx={{ padding: "16px", background: data?.bg }}>
+        <Box sx={{ padding: "16px", background: randomNumber == 0 ? "violet" : randomNumber == 1 ? "green" : "cyan" }}>
           <Typography gutterBottom variant="h5" component="div">
             {resizedName}
           </Typography>
