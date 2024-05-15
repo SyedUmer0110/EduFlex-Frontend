@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { IoIdCardOutline } from "react-icons/io5";
 import { SlOptionsVertical } from "react-icons/sl";
-import { getDate } from "../../config/Constants";
+
 const FeedbackCard = ({ data }) => {
     return (
         <Box
@@ -42,7 +42,18 @@ const FeedbackCard = ({ data }) => {
                 marginBottom: "10px",
                 }}
             >
-            {data?.title}
+            {data?.course?.course_name}
+         </Typography>
+
+         <Typography
+                sx={{
+                color: "#000000",
+                fontSize: "20px",
+                fontWeight: 300,
+                marginBottom: "10px",
+                }}
+            >
+            {data?.lecture?.topic}
          </Typography>
           <Typography
             sx={{
@@ -51,48 +62,11 @@ const FeedbackCard = ({ data }) => {
               marginBottom: "10px",
             }}
           >
-            {data?.content}
+            {data?.feedback}
           </Typography>
-          <Typography
-            sx={{
-              color: "#848a8c",
-              fontSize: "12px",
-              fontWeight: 600,
-            }}
-          >
-            {getDate(data?.createdAt)}
-          </Typography>
-
-            {/* Display optional image */}
-      {data?.image && (
-        <img
-          src={data.image}
-          alt="Image"
-          style={{ width: "100%", height:"40%", borderRadius: "10px", marginBottom: "10px" }}
-        />
-      )}
         </Box>
            
-           
-            {/* <Typography
-            sx={{
-                color: "#848a8c",
-                fontSize: "14px",
-                marginBottom: "10px",
-                }}
-            >
-              {data?.content}
-            </Typography>
-            <Typography
-                  sx={{
-                    color: "#000000",
-                    fontSize: "12px",
-                    fontWeight: 600,
-                    marginTop: "10px",
-                 }}
-            >
-              {getDate(data?.createdAt)}
-            </Typography> */}
+        
 
           </Box>
     

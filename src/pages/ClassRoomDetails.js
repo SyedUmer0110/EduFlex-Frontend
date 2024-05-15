@@ -12,6 +12,9 @@ import {
 } from "../api/classroom/ClassroomServices";
 import FileViewer from "../components/FileViewer";
 import { IoMdSend } from "react-icons/io";
+import LectureFeedbackCard from "../components/Card/LectureFeedbackCard";
+import { getFeedbacks, getLectures } from "../api/lecture/LectureServices";
+import FeedbackCard from "../components/Card/FeedbackCard";
 
 const dummyAnnouncements = [
   {
@@ -38,6 +41,12 @@ const ClassRoomDetails = () => {
   const [announcements, setAnnouncements] = useState(null);
   const [studentList, setStudentList] = useState(null);
   const [content, setContent] = useState(null);
+  const [lectures, setLectures] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [role, setRole] =  useState("");
+
+  
+
 
   const getStudents = async () => {
     const data = await getClassroomStudents(id);
@@ -56,14 +65,38 @@ const ClassRoomDetails = () => {
     setAnnouncements(dummyAnnouncements);
   };
 
+  const getAllLectures = async () => {
+    const data = await getLectures(id);
+    setLectures([...data]);
+  }
+
+  const getAllFeedbacks = async () => {
+    console.log("feedback");
+    const data = await getFeedbacks(id);
+    setFeedbacks([...data]);
+    console.log("feedback");
+    console.log(feedbacks);
+  }
+  useEffect(()=>{
+    const myrole = localStorage.getItem('role');
+    setRole(myrole);
+  },[])
+
   useEffect(() => {
+    const myrole = localStorage.getItem('role');
+    setRole(myrole);
     if (value == 0) {
       getAnnouncements();
     } else if (value == 1) {
       getContent();
     } else if (value == 2) {
       getStudents();
+    }else if(value == 3){
+      getAllLectures();
+    }else if(value == 4 && role === "Role_TEACHER"){
+      getAllFeedbacks();
     }
+
   }, [value, id]);
 
   const handleChange = (event, newValue) => {
@@ -111,6 +144,11 @@ const ClassRoomDetails = () => {
           <Tab value="0" label="Stream" />
           <Tab value="1" label="Classwork" />
           <Tab value="2" label="People" />
+          <Tab value="3" label="Lectures"/>
+         {role == "Role_TEACHER" &&(
+          <Tab value="4" label = "Feedbacks"/>
+         )}
+
         </Tabs>
 
         <TabPanel value={value} index={0}>
@@ -201,6 +239,7 @@ const ClassRoomDetails = () => {
                       fontSize: "24px",
                       borderBottom: "1px solid black",
                       paddingBottom: "1rem",
+                      fontWeight:"600px"
                     }}
                   >
                     {item?.title}
@@ -215,6 +254,7 @@ const ClassRoomDetails = () => {
                     {item?.files?.map((file) => (
                       <>
                         <Typography
+                        sx={{fontWeight: "600px"}}
                           onClick={() =>
                             setShowPdf({ name: file.name, show: true })
                           }
@@ -381,6 +421,97 @@ const ClassRoomDetails = () => {
             </Box>
           </Box>
         </TabPanel>
+
+        <TabPanel value={value} index={3}>
+          <Box sx={{ width: "80%", margin: "0 auto" }}>
+            <Box
+              sx={{
+                padding: "10px 15px",
+                background: "#1e8e3e",
+                borderRadius: "10px",
+                display: "flex",
+                alignItems: "end",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography
+                  sx={{
+                    fontSize: "32px",
+                    fontWeight: 500,
+                    color: "white",
+                    paddingBottom: "1rem",
+                  
+                  }}
+                >
+                  {state?.data?.course?.course_name} - Lectures 
+                </Typography>
+              </Box>
+              <img src={BookImage} style={{ width: "400px", height: "auto" }} />
+            </Box>
+
+            <Box
+              sx={{
+                marginTop: "1rem",
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "1rem",
+              }}
+            >
+              {lectures?.map((item) => (
+                <LectureFeedbackCard data={item} />
+              ))}
+            </Box>
+          </Box>
+        </TabPanel>
+
+       {role === "Role_TEACHER" &&(
+          <TabPanel value={value} index={4}>
+          <Box sx={{ width: "80%", margin: "0 auto" }}>
+            <Box
+              sx={{
+                padding: "10px 15px",
+                background: "#1e8e3e",
+                borderRadius: "10px",
+                display: "flex",
+                alignItems: "end",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography
+                  sx={{
+                    fontSize: "32px",
+                    fontWeight: 500,
+                    color: "white",
+                    paddingBottom: "1rem",
+                  
+                  }}
+                >
+                  {state?.data?.course?.course_name} - Feedbacks 
+                </Typography>
+              </Box>
+              <img src={BookImage} style={{ width: "400px", height: "auto" }} />
+            </Box>
+
+            <Box
+              sx={{
+                marginTop: "1rem",
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "1rem",
+              }}
+            >
+              {feedbacks?.map((item) => (
+                <FeedbackCard data={item} />
+              ))}
+            </Box>
+          </Box>
+        </TabPanel>
+       )}
+       
+
+        
       </Box>
     </Layout>
   );

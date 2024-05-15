@@ -13,6 +13,7 @@ import GeneralAnnouncement from "../pages/GeneralAnnouncement";
 import Lectures from "../pages/Lectures";
 import Feedback from "../pages/Feedback";
 import CourseRegistration from "../pages/CourseRegistration"
+import AddAttendance from "../pages/AddAttendance";
 
 
 const Routers = () => {
@@ -25,15 +26,13 @@ const Routers = () => {
         <Route path="/classrooms" element={<ClassRoom />} />
         <Route path="/classrooms/:id" element={<ClassRoomDetails />} />
         <Route path="/attendance" element={<Attendance />} />
+        <Route path="/addAttendance" element={<AddAttendance />} />
         <Route path="/marks" element={<Marks />} />
         <Route path="/jobs" element={<Jobs />} />
         <Route path="/scholarships" element={<Scholarships />} />
         <Route path="/updates" element={<SocietyUpdates />} />
         <Route path="/announcements" element={<GeneralAnnouncement />} />
-        <Route path="/classroom/lectures" element={<Lectures/>}/>
-        <Route path="/classroom/feedbacks" element={<Feedback/>}/>
-
-        {/* <Route path="/chataApp" element={<ChatLayout />}></Route> */}
+      
 
 
       </Routes>

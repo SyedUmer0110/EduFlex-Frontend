@@ -2,11 +2,11 @@ import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { privateAPI, attachToken } from "../../config/Constants";
 
-export const getLectures = async() => {
+export const getLectures = async(id) => {
     try {
         const classroom = "3Spring202323CSA";
         attachToken()
-        const res = await privateAPI.get(`/api/feedback/lectures/${classroom}`);
+        const res = await privateAPI.get(`/api/feedback/lectures/${id}`);
         if (res?.status === 200 || res?.status === 201) {
             console.log(res?.data);
             return res?.data
@@ -54,9 +54,9 @@ export const getAvgRating = async() => {
     }
 }
 
-export const getFeedbacks = async() => {
+export const getFeedbacks = async(id) => {
   try {
-      const classroom = "3Spring202323CSA";
+      const classroom = "3spring202423SEA";
       attachToken()
       const res = await privateAPI.get(`/api/feedback/feedback/${classroom}`);
       console.log(res?.data);

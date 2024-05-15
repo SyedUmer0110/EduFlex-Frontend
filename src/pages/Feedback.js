@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Pagination, Typography } from "@mui/material";
+import { Box, Pagination, Rating, Typography } from "@mui/material";
 import Layout from "../layout/Layout";
 import { getPosts } from "../api/generalAnnouncement/GeneralAnnouncement";
 import LectureFeedbackCard from "../components/Card/LectureFeedbackCard";
 import { getAvgRating, getFeedbacks, getLectures } from "../api/lecture/LectureServices";
+import FeedbackCard from "../components/Card/FeedbackCard";
 
 const data = [
   {
@@ -120,7 +121,7 @@ const data = [
 const Feedback = () => {
   const [page, setPage] = useState(1);
   const [feedbacks, setFeedbacks] = useState([]);
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState({});
 
   const pageChangeHandler = (a, page) => {
     setPage(page);
@@ -154,8 +155,15 @@ const Feedback = () => {
         }}
       >
         
-       <Typography>
-        Teacher Performance Rating - {rating}
+       <Typography
+       sx={{
+        color: "#000000",
+        fontSize: "20px",
+        fontWeight: 800,
+        marginBottom: "10px",
+        }}
+       >
+         Feedback Rating - <Rating name="teacher-rating" value={rating?.rating} precision={1} readOnly />
        </Typography>
         <Box
           sx={{
@@ -168,8 +176,18 @@ const Feedback = () => {
             gap: "1rem",
           }}
         >
+          <Typography
+          sx={{
+            color: "#000000",
+            fontSize: "20px",
+            fontWeight: 800,
+            marginBottom: "10px",
+            }}
+          >
+            Feedbacks
+            </Typography>
           {feedbacks?.map((item) => (
-            <LectureFeedbackCard data={item} />
+            <FeedbackCard data={item} />
           ))}
         </Box>
 

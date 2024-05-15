@@ -9,7 +9,12 @@ import {
   TableRow,
 } from "@mui/material";
 
-const CustomTable = ({ headRows, rows }) => {
+const CustomTable = ({ headRows,  attendances }) => {
+  console.log(attendances);
+  // const 
+
+ 
+
   return (
     <TableContainer className="custom_table" component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -21,18 +26,17 @@ const CustomTable = ({ headRows, rows }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows?.map((row) => (
-            <TableRow key={row.name}>
-              {row?.map((item) => (
-                <TableCell component="th" scope="row" align="center">
-                  {item}
-                </TableCell>
-              ))}
+          {attendances?.map((row,index) => (
+            <TableRow  key={row.id}>
+              <TableCell align="center">{index+1}</TableCell>
+              <TableCell align="center">{row?.date}</TableCell>
+              <TableCell align="center">{row?.status}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    
   );
 };
 
