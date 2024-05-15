@@ -136,6 +136,7 @@ const VerticalLayout = ({ children }) => {
         <List>
           {[
             { name: "Dashboard", route: "/", icon: <RxDashboard /> },
+            { name: "Course Registration", route: "/course-registration", icon: <RxDashboard /> },
             {
               name: "Classrooms",
               route: "/classrooms",

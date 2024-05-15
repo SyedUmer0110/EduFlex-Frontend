@@ -12,6 +12,7 @@ import SocietyUpdates from "../pages/SocietyUpdates";
 import GeneralAnnouncement from "../pages/GeneralAnnouncement";
 import Lectures from "../pages/Lectures";
 import Feedback from "../pages/Feedback";
+import CourseRegistration from "../pages/CourseRegistration"
 
 
 const Routers = () => {
@@ -20,6 +21,7 @@ const Routers = () => {
       <Routes>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/" element={<Dashboard />} />
+        <Route path="/course-registration" element={<CourseRegistration />} />
         <Route path="/classrooms" element={<ClassRoom />} />
         <Route path="/classrooms/:id" element={<ClassRoomDetails />} />
         <Route path="/attendance" element={<Attendance />} />

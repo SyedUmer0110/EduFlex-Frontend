@@ -10,29 +10,32 @@ import {
   getClassroomContent,
   getClassroomStudents,
 } from "../api/classroom/ClassroomServices";
+import FileViewer from "../components/FileViewer";
+import { IoMdSend } from "react-icons/io";
 
 const dummyAnnouncements = [
   {
     id: 1,
-    content: 'Teacher Uploaded a new material: Lecture Slides 7',
+    content: "Teacher Uploaded a new material: Lecture Slides 7",
   },
   {
     id: 2,
-    content: 'Teacher Uploaded a new material: Lecture Slides 7',
+    content: "Teacher Uploaded a new material: Lecture Slides 7",
   },
   {
     id: 3,
-    content: 'Teacher Uploaded a new material: Lecture Slides 7',
+    content: "Teacher Uploaded a new material: Lecture Slides 7",
   },
-]
+];
 
 const ClassRoomDetails = () => {
   const { id } = useParams();
   const { state } = useLocation();
   console.log("state", state);
   const [value, setValue] = useState("0");
+  const [showPdf, setShowPdf] = useState({ name: "", show: false });
 
-  const [announcements, setAnnouncements] = useState(null)
+  const [announcements, setAnnouncements] = useState(null);
   const [studentList, setStudentList] = useState(null);
   const [content, setContent] = useState(null);
 
@@ -50,7 +53,7 @@ const ClassRoomDetails = () => {
   const getAnnouncements = async () => {
     // const data = await getClassroomAnnouncements(id);
     // console.log("data", data);
-    setAnnouncements(dummyAnnouncements)
+    setAnnouncements(dummyAnnouncements);
   };
 
   useEffect(() => {
@@ -86,6 +89,8 @@ const ClassRoomDetails = () => {
       </div>
     );
   };
+
+  const [open, setOpen] = React.useState(false);
 
   return (
     <Layout>
@@ -135,7 +140,28 @@ const ClassRoomDetails = () => {
               <img src={BookImage} style={{ width: "400px", height: "auto" }} />
             </Box>
 
-            <Box></Box>
+            <Box
+              sx={{
+                margin: "2rem 0",
+                border: "1px solid #dadce0",
+                borderRadius: "8px",
+                padding: "20px",
+                display: "flex",
+              }}
+            >
+              <Box
+                sx={{
+                  width: "100%",
+                  margin: "5px 0",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <input placeholder="Comment" className="comment_input" />
+                <IoMdSend />
+              </Box>
+            </Box>
 
             <Box
               sx={{
@@ -147,6 +173,86 @@ const ClassRoomDetails = () => {
             >
               {announcements?.map((item) => (
                 <AnnouncementCard data={item} />
+              ))}
+            </Box>
+          </Box>
+        </TabPanel>
+
+        <TabPanel value={value} index={1}>
+          <Box sx={{ width: "80%", margin: "0 auto" }}>
+            <Box
+              sx={{
+                marginTop: "1rem",
+                display: "flex",
+                flexDirection: "column",
+                rowGap: "2rem",
+              }}
+            >
+              {content?.map((item) => (
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    rowGap: "0.6rem",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "24px",
+                      borderBottom: "1px solid black",
+                      paddingBottom: "1rem",
+                    }}
+                  >
+                    {item?.title}
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      rowGap: "0.5rem",
+                    }}
+                  >
+                    {item?.files?.map((file) => (
+                      <>
+                        <Typography
+                          onClick={() =>
+                            setShowPdf({ name: file.name, show: true })
+                          }
+                        >
+                          {file?.name}
+                        </Typography>
+
+                        <div
+                        // className={
+                        //   showPdf.name == file.name && showPdf.show === true
+                        //     ? "active_pdf_view"
+                        //     : "pdf_view"
+                        // }
+                        >
+                          <div className="App">
+                            <FileViewer base64String={file?.fileData} />
+                          </div>
+                        </div>
+
+                        {/* {showPdf.name == file.name && showPdf.show === true && (
+                          <div
+                          // className={
+                          //   showPdf.name == file.name && showPdf.show === true
+                          //     ? "active_pdf_view"
+                          //     : "pdf_view"
+                          // }
+                          >
+                            <div className="App">
+                              <FileViewer base64String={file?.fileData} />
+                            </div>
+                          </div>
+                        )} */}
+
+                        {/* <PreviewModal open={open} setOpen={setOpen} name={file.name} /> */}
+                      </>
+                    ))}
+                  </Box>
+                </Box>
               ))}
             </Box>
           </Box>

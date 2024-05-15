@@ -7,8 +7,7 @@ import {
   getClassroomContent,
   getClassrooms,
 } from "../api/classroom/ClassroomServices";
-
-import FileViewer from "../components/FileViewer";
+import PdfUploader from "../components/PdfUploader";
 
 const data = [
   {
@@ -36,7 +35,15 @@ const ClassRoom = () => {
   const getClasses = async () => {
     const data = await getClassrooms();
     console.log("data", data);
-    setClassRooms([...data?.classrooms, ...data?.electiveClassrooms]);
+    let tempArr = [];
+    if (data?.classrooms?.length > 0) {
+      tempArr = [...tempArr, ...data?.classrooms];
+    }
+
+    if (data?.electiveClassrooms?.length > 0) {
+      tempArr = [...tempArr, ...data?.electiveClassrooms];
+    }
+    setClassRooms(tempArr);
   };
 
   useEffect(() => {
@@ -58,6 +65,10 @@ const ClassRoom = () => {
             <ClassCard key={index} data={item} />
           ))}
       </Box>
+
+      <div>
+        <PdfUploader />
+      </div>
     </Layout>
   );
 };

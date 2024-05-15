@@ -48,3 +48,7 @@ code {
 .comment_input:focus-visible{
   outline: none !important;
 }
+
+.pdf_view{
+  display: none;
+}
