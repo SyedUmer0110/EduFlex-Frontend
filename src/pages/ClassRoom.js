@@ -6,6 +6,7 @@ import ClassCard from "../components/Card/ClassCard";
 import {
   getClassroomContent,
   getClassrooms,
+  getTeacherClassrooms,
 } from "../api/classroom/ClassroomServices";
 import PdfUploader from "../components/PdfUploader";
 
@@ -46,8 +47,31 @@ const ClassRoom = () => {
     setClassRooms(tempArr);
   };
 
+  const getTeacherClasses = async () => {
+    const data = await getTeacherClassrooms();
+    let tempArr = [];
+    if (data?.length > 0) {
+      data?.map((item) => {
+        if (item?.classroom) {
+          tempArr.push(item?.classroom);
+        }
+
+        if (item?.electiveClassroom) {
+          tempArr.push(item?.electiveClassroom);
+        }
+      });
+    }
+    setClassRooms(tempArr);
+  };
+
   useEffect(() => {
-    getClasses();
+    const role = localStorage.getItem("role");
+    console.log("role", role);
+    if (role == "Role_STUDENT") {
+      getClasses();
+    } else if(role == "Role_TEACHER"){
+      getTeacherClasses();
+    }
   }, []);
 
   return (
@@ -65,10 +89,6 @@ const ClassRoom = () => {
             <ClassCard key={index} data={item} />
           ))}
       </Box>
-
-      <div>
-        <PdfUploader />
-      </div>
     </Layout>
   );
 };

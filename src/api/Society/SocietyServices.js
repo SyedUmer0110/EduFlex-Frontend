@@ -17,4 +17,19 @@ export const getSocietyUpdates = async() => {
       }
 }
 
+export const createSocietyUpdates = async(payload) => {
+    try {
+        attachToken()
+        const res = await privateAPI.post("/api/society/create", payload);
+
+        if (res?.status === 200 || res?.status === 201) {
+            console.log(res?.data);
+            return res?.data
+        }
+      } catch (err) {
+        console.log(err);
+        toast.error("There was an error while fetching society updates");
+      }
+}
+
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Pagination } from "@mui/material";
+import { Box, Button, Pagination } from "@mui/material";
 
 import Layout from "../layout/Layout";
 import JobCard from "../components/Card/JobCard";
@@ -8,6 +8,7 @@ import { getScholarships } from "../api/scholarship/ScholarshipServices";
 import ScholarshipCard from "../components/Card/ScholarshipCard";
 import { getSocietyUpdates } from "../api/Society/SocietyServices";
 import UpdatesCard from "../components/Card/UpdatesCard";
+import CreateUpdateModal from "../components/Modal/CreateUpdateModal";
 
 const data = [
   {
@@ -124,23 +125,24 @@ const data = [
 const SocietyUpdates = () => {
   const [page, setPage] = useState(1);
   const [updates, setUpdates] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const pageChangeHandler = (a, page) => {
     setPage(page);
   };
-  const getAllUpdates =async() => {
-      const mydata = await getSocietyUpdates();
-      setUpdates([...mydata]);
-  }
+  const getAllUpdates = async () => {
+    const mydata = await getSocietyUpdates();
+    setUpdates([...mydata]);
+  };
 
   useEffect(() => {
     getAllUpdates();
-    const startIndex = (page - 1) * 5
-    const endIndex = 5 * page
+    const startIndex = (page - 1) * 5;
+    const endIndex = 5 * page;
 
-    let tempData = updates.slice(startIndex, endIndex)
+    let tempData = updates.slice(startIndex, endIndex);
     setUpdates(tempData);
-  },[page])
+  }, [page]);
 
   return (
     <Layout>
@@ -153,6 +155,18 @@ const SocietyUpdates = () => {
           gap: "2rem",
         }}
       >
+        {localStorage.getItem("role") == "Role_ADMIN" && (
+          <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+            <Button className="apply_now_btn" onClick={() => setOpen(true)}>
+              Create
+            </Button>
+            <CreateUpdateModal
+              open={open}
+              setOpen={setOpen}
+              getAllUpdates={getAllUpdates}
+            />
+          </Box>
+        )}
         <Box
           sx={{
             width: "95%",

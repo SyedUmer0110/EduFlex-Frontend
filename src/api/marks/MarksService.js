@@ -5,8 +5,7 @@ import { privateAPI, attachToken } from "../../config/Constants";
 export const getMarks = async(id) => {
     try {
         attachToken()
-        // const res = await privateAPI.get(`/fyp/marks/getQuiz/${id}`);
-        const res = await privateAPI.get(`/fyp/marks/getQuiz/5`);
+        const res = await privateAPI.get(`/fyp/marks/getQuiz/${id}`);
         if (res?.status === 200 || res?.status === 201) {
             console.log(res?.data);
             return res?.data

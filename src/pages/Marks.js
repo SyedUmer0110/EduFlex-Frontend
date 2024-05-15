@@ -26,6 +26,8 @@ const headRows = [
 
 const assignmentRows = ["Assignment #", "Obtained Marks", "Total Marks"];
 
+const quizRows = ["Quiz #", "Obtained Marks", "Total Marks"];
+
 const mid1Rows = ["Sessional-1 #", "Obtained Marks", "Total Marks"];
 
 const mid2Rows = ["Sessional-2 #", "Obtained Marks", "Total Marks"];
@@ -58,6 +60,7 @@ const Marks = () => {
 
   const [marks, setMarks] = useState(null);
   const [assignmentData, setAssignmentData] = useState([]);
+  const [quizData, setQuizData] = useState([]);
   const [projectData, setProjectData] = useState([]);
   const [session1Data, setSession1Data] = useState([]);
   const [session2Data, setSession2Data] = useState([]);
@@ -109,6 +112,13 @@ const Marks = () => {
 
   useEffect(() => {
     if (marks) {
+      // for quiz
+      let tempQuiz = marks?.quiz ? Object.keys(marks?.quiz).map((key) => [key, marks?.quiz[key], (marks?.totQuiz / Object.keys(marks?.quiz).length)?.toFixed(2)]) : []
+      setQuizData(tempQuiz)
+      // setQuizData
+      // for assignment
+      let tempAssignment = marks?.assignment ? Object.keys(marks?.assignment).map((key) => [key, marks?.assignment[key], marks?.totAssignment / Object.keys(marks?.assignment).length]) : []
+      setAssignmentData(tempAssignment)
       // for project data
       let tempArrProjetcs = [1, marks?.project, marks?.totProject || 0];
       setProjectData([tempArrProjetcs]);
@@ -219,24 +229,6 @@ const Marks = () => {
             ))} */}
 
           <Accordion
-            expanded={expanded === "assignment"}
-            onChange={handleChange("assignment")}
-          >
-            <AccordionSummary
-              expandIcon={<MdOutlineExpandMore />}
-              aria-controls="panel1bh-content"
-              id="panel1bh-header"
-            >
-              <Typography sx={{ width: "33%", flexShrink: 0 }}>
-                Assignment
-              </Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <CustomTable headRows={assignmentRows} rows={rows} />
-            </AccordionDetails>
-          </Accordion>
-
-          <Accordion
             expanded={expanded === "mid1"}
             onChange={handleChange("mid1")}
           >
@@ -269,6 +261,42 @@ const Marks = () => {
             </AccordionSummary>
             <AccordionDetails>
               <CustomTable headRows={mid2Rows} rows={session2Data} />
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion
+            expanded={expanded === "quiz"}
+            onChange={handleChange("quiz")}
+          >
+            <AccordionSummary
+              expandIcon={<MdOutlineExpandMore />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Quiz
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <CustomTable headRows={quizRows} rows={quizData} />
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion
+            expanded={expanded === "assignment"}
+            onChange={handleChange("assignment")}
+          >
+            <AccordionSummary
+              expandIcon={<MdOutlineExpandMore />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Assignment
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <CustomTable headRows={assignmentRows} rows={assignmentData} />
             </AccordionDetails>
           </Accordion>
 

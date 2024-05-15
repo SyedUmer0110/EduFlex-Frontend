@@ -16,6 +16,20 @@ export const getJobs = async() => {
       }
 }
 
+export const createJob = async(payload) => {
+    try {
+        attachToken()
+        const res = await privateAPI.post("/api/job/create", payload);
+        if (res?.status === 200) {
+            console.log(res?.data);
+            return res?.data
+        }
+      } catch (err) {
+        console.log(err);
+        toast.error("There was an error while fetching classroom");
+      }
+}
+
 export const applyJob = async(jobId, formData) => {
   try {
       attachToken()

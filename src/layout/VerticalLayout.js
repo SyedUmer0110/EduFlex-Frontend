@@ -39,14 +39,13 @@ const VerticalLayout = ({ children }) => {
       setPageTitle("Marks");
     } else if (window.location.pathname === "/jobs") {
       setPageTitle("Jobs");
-    }else if(window.location.pathname === "/scholarships"){
+    } else if (window.location.pathname === "/scholarships") {
       setPageTitle("Scholarships");
-    }else if(window.location.pathname === "/updates"){
+    } else if (window.location.pathname === "/updates") {
       setPageTitle("Society Updates");
-    }else if(window.location.pathname === "/announcements"){
-        setPageTitle("General Announcements");
+    } else if (window.location.pathname === "/announcements") {
+      setPageTitle("General Announcements");
     }
-
   }, [window.location.pathname]);
 
   const handleDrawerClose = () => {
@@ -56,7 +55,7 @@ const VerticalLayout = ({ children }) => {
   const logoutHandler = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
-    
+
     // localStorage.clear()
     navigate("/signin");
   };
@@ -136,7 +135,11 @@ const VerticalLayout = ({ children }) => {
         <List>
           {[
             { name: "Dashboard", route: "/", icon: <RxDashboard /> },
-            { name: "Course Registration", route: "/course-registration", icon: <RxDashboard /> },
+            {
+              name: "Course Registration",
+              route: "/course-registration",
+              icon: <RxDashboard />,
+            },
             {
               name: "Classrooms",
               route: "/classrooms",
@@ -145,9 +148,21 @@ const VerticalLayout = ({ children }) => {
             { name: "Attendance", route: "/attendance", icon: <FaUserCheck /> },
             { name: "Add Attendance", route: "/addAttendance", icon: <FaUserCheck /> }, 
             { name: "Marks", route: "/marks", icon: <BsFileRuled /> },
-            {name: "Scholarships", route: "/scholarships", icon: <IoMenuSharp/>},
-            {name: "Society Updates", route: "/updates", icon: <FaUserCheck/>},
-            { name: "General Announcements", route: "/announcements", icon: <TbWorldSearch /> },
+            {
+              name: "Scholarships",
+              route: "/scholarships",
+              icon: <IoMenuSharp />,
+            },
+            {
+              name: "Society Updates",
+              route: "/updates",
+              icon: <FaUserCheck />,
+            },
+            {
+              name: "General Announcements",
+              route: "/announcements",
+              icon: <TbWorldSearch />,
+            },
             { name: "Jobs", route: "/jobs", icon: <TbWorldSearch /> },
             {
               name: "Settings",

@@ -15,6 +15,8 @@ import { IoMdSend } from "react-icons/io";
 import LectureFeedbackCard from "../components/Card/LectureFeedbackCard";
 import { getFeedbacks, getLectures } from "../api/lecture/LectureServices";
 import FeedbackCard from "../components/Card/FeedbackCard";
+import CreateAnnouncementBox from "../components/CreateAnnouncementBox";
+import PdfUploader from "../components/PdfUploader";
 
 const dummyAnnouncements = [
   {
@@ -59,10 +61,10 @@ const ClassRoomDetails = () => {
     setContent(data);
   };
 
-  const getAnnouncements = async () => {
-    // const data = await getClassroomAnnouncements(id);
-    // console.log("data", data);
-    setAnnouncements(dummyAnnouncements);
+  const getAnnouncements = async (classroomId) => {
+    const data = await getClassroomAnnouncements(id);
+    console.log("data announce", data);
+    setAnnouncements(data);
   };
 
   const getAllLectures = async () => {
@@ -123,8 +125,6 @@ const ClassRoomDetails = () => {
     );
   };
 
-  const [open, setOpen] = React.useState(false);
-
   return (
     <Layout>
       <Box
@@ -178,28 +178,22 @@ const ClassRoomDetails = () => {
               <img src={BookImage} style={{ width: "400px", height: "auto" }} />
             </Box>
 
-            <Box
-              sx={{
-                margin: "2rem 0",
-                border: "1px solid #dadce0",
-                borderRadius: "8px",
-                padding: "20px",
-                display: "flex",
-              }}
-            >
+            {localStorage.getItem("role") === "Role_TEACHER" && (
               <Box
                 sx={{
-                  width: "100%",
-                  margin: "5px 0",
+                  margin: "2rem 0",
+                  border: "1px solid #dadce0",
+                  borderRadius: "8px",
+                  padding: "20px",
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
                 }}
               >
-                <input placeholder="Comment" className="comment_input" />
-                <IoMdSend />
+                <CreateAnnouncementBox
+                  id={id}
+                  getAnnouncements={getAnnouncements}
+                />
               </Box>
-            </Box>
+            )}
 
             <Box
               sx={{
@@ -209,15 +203,20 @@ const ClassRoomDetails = () => {
                 rowGap: "1rem",
               }}
             >
-              {announcements?.map((item) => (
-                <AnnouncementCard data={item} />
-              ))}
+              {announcements?.length > 0 &&
+                announcements?.map((item) => <AnnouncementCard data={item} />)}
             </Box>
           </Box>
         </TabPanel>
 
         <TabPanel value={value} index={1}>
           <Box sx={{ width: "80%", margin: "0 auto" }}>
+            {localStorage.getItem("role") == "Role_TEACHER" && (
+              <Box>
+                <PdfUploader />
+              </Box>
+            )}
+
             <Box
               sx={{
                 marginTop: "1rem",

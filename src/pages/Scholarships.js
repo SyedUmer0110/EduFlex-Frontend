@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Box, Pagination } from "@mui/material";
+import { Box, Button, Pagination } from "@mui/material";
 
 import Layout from "../layout/Layout";
 import JobCard from "../components/Card/JobCard";
 import { getJobs } from "../api/jobs/JobServices";
 import { getScholarships } from "../api/scholarship/ScholarshipServices";
 import ScholarshipCard from "../components/Card/ScholarshipCard";
+import CreateScholarShipModal from "../components/Modal/CreateScholarShipModal";
 
 const data = [
   {
@@ -122,23 +123,25 @@ const data = [
 const Scholarships = () => {
   const [page, setPage] = useState(1);
   const [scholarships, setScholarships] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const pageChangeHandler = (a, page) => {
     setPage(page);
   };
-  const getAllScholarships =async() => {
-      const scholarship = await getScholarships();
-      setScholarships([...scholarship]);
-  }
+  const getAllScholarships = async () => {
+    const scholarship = await getScholarships();
+    console.log("scholarship", scholarship);
+    setScholarships([...scholarship]);
+  };
 
   useEffect(() => {
     getAllScholarships();
-    const startIndex = (page - 1) * 5
-    const endIndex = 5 * page
+    const startIndex = (page - 1) * 5;
+    const endIndex = 5 * page;
 
-    let tempData = scholarships.slice(startIndex, endIndex)
-    setScholarships(tempData)
-  },[page])
+    let tempData = scholarships?.slice(startIndex, endIndex);
+    setScholarships(tempData);
+  }, [page]);
 
   return (
     <Layout>
@@ -151,6 +154,14 @@ const Scholarships = () => {
           gap: "2rem",
         }}
       >
+        {localStorage.getItem("role") == "Role_ADMIN" && (
+          <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+            <Button className="apply_now_btn" onClick={() => setOpen(true)}>
+              Create
+            </Button>
+            <CreateScholarShipModal open={open} setOpen={setOpen} getAllScholarships={getAllScholarships} />
+          </Box>
+        )}
         <Box
           sx={{
             width: "95%",

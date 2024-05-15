@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Pagination } from "@mui/material";
+import { Box, Button, Pagination } from "@mui/material";
 
 import Layout from "../layout/Layout";
 import JobCard from "../components/Card/JobCard";
@@ -9,6 +9,7 @@ import ScholarshipCard from "../components/Card/ScholarshipCard";
 import GeneralAnnoucementCard from "../components/Card/GeneralAnnoucementCard";
 import AnnouncementCard from "../components/Card/AnnouncementCard";
 import { getPosts } from "../api/generalAnnouncement/GeneralAnnouncement";
+import CreatePostModal from "../components/Modal/CreatePostModal";
 
 const data = [
   {
@@ -125,6 +126,7 @@ const data = [
 const GeneralAnnouncement = () => {
   const [page, setPage] = useState(1);
   const [posts, setPosts] = useState([]);
+  const [open, setOpen] = useState(false)
 
   const pageChangeHandler = (a, page) => {
     setPage(page);
@@ -154,6 +156,18 @@ const GeneralAnnouncement = () => {
           gap: "2rem",
         }}
       >
+        {localStorage.getItem("role") == "Role_ADMIN" && (
+          <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
+            <Button className="apply_now_btn" onClick={() => setOpen(true)}>
+              Create
+            </Button>
+            <CreatePostModal
+              open={open}
+              setOpen={setOpen}
+              getAllPosts={getAllPosts}
+            />
+          </Box>
+        )}
         <Box
           sx={{
             width: "95%",

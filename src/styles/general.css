@@ -1,18 +1,18 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-.apply_now_btn{
+.apply_now_btn {
   border: 1px solid var(--primary) !important;
   background: transparent !important;
   color: var(--primary) !important;
@@ -21,34 +21,49 @@ code {
   padding: 8px 16px !important;
 }
 
-.apply_now_btn:hover{
+.apply_now_btn:hover {
   color: #fff !important;
   background: var(--primary) !important;
 }
 
-.border_btn{
+.border_btn {
   border: 1px solid var(--primary) !important;
   background: transparent !important;
   color: var(--primary) !important;
   font-size: 12px !important;
 }
 
-.border_btn_active{
+.border_btn_active {
   background: var(--primary) !important;
   color: #fff !important;
   font-size: 12px !important;
 }
 
-.comment_input{
+.comment_input {
   width: 80%;
   font-size: 16px;
   border: none;
 }
 
-.comment_input:focus-visible{
+.comment_input:focus-visible {
   outline: none !important;
 }
 
-.pdf_view{
+.pdf_view {
   display: none;
+}
+
+.date_picker_input {
+  border: 1px solid gray;
+  padding: 20px 10px;
+  border-radius: 3px;
+}
+
+.date_picker_input:focus {
+  outline: none !important;
+}
+
+.modal_submit_btn{
+  background: var(--primary) !important;
+  color: #fff !important;
 }
