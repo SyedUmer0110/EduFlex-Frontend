@@ -10,6 +10,9 @@ import Jobs from "../pages/Jobs";
 import Scholarships from "../pages/Scholarships";
 import SocietyUpdates from "../pages/SocietyUpdates";
 import GeneralAnnouncement from "../pages/GeneralAnnouncement";
+import Lectures from "../pages/Lectures";
+import Feedback from "../pages/Feedback";
+
 
 const Routers = () => {
   return (
@@ -25,6 +28,10 @@ const Routers = () => {
         <Route path="/scholarships" element={<Scholarships />} />
         <Route path="/updates" element={<SocietyUpdates />} />
         <Route path="/announcements" element={<GeneralAnnouncement />} />
+        <Route path="/classroom/lectures" element={<Lectures/>}/>
+        <Route path="/classroom/feedbacks" element={<Feedback/>}/>
+
+        {/* <Route path="/chataApp" element={<ChatLayout />}></Route> */}
 
 
       </Routes>

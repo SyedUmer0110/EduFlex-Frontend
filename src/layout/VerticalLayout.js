@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
+import { IoIdCardOutline } from "react-icons/io5";
 import { IoMenuSharp, IoSettingsOutline } from "react-icons/io5";
 import { RxDashboard } from "react-icons/rx";
 import { FaUserCheck } from "react-icons/fa6";
@@ -147,6 +147,8 @@ const VerticalLayout = ({ children }) => {
             {name: "Society Updates", route: "/updates", icon: <FaUserCheck/>},
             { name: "General Announcements", route: "/announcements", icon: <TbWorldSearch /> },
             { name: "Jobs", route: "/jobs", icon: <TbWorldSearch /> },
+            { name: "Lectures", route: "/classroom/lectures", icon: <IoIdCardOutline /> },
+            { name: "Feedbacks", route: "/classroom/feedbacks", icon: <IoIdCardOutline /> },
             {
               name: "Settings",
               route: "/settings",
