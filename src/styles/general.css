@@ -67,3 +67,15 @@ code {
   background: var(--primary) !important;
   color: #fff !important;
 }
+
+.start_btn{
+  padding: 10px 15px !important;
+  background: green !important;
+  color: #fff !important;
+}
+
+.close_btn{
+  padding: 10px 15px !important;
+  background: orangered !important;
+  color: #fff !important;
+}

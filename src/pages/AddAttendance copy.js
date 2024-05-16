@@ -83,17 +83,17 @@ const AddAttendance = () => {
 
   useEffect(() => {
     if (attendanceList?.length > 0) {
-      let tempArr = ["Name"];
+      let tempArr = ['Name'];
       attendanceList[0]?.attendanceList?.map((item) => {
-        tempArr.push(item?.date);
+        tempArr.push(item?.date)
       });
 
-      setHeadRows(tempArr);
+      setHeadRows(tempArr)
     }
   }, [attendanceList]);
 
   return (
-    <>
+    <Layout>
       <Box
         sx={{
           display: "flex",
@@ -156,7 +156,7 @@ const AddAttendance = () => {
         >
           No Attendance uploaded yet</Typography>
       )} */}
-    </>
+    </Layout>
   );
 };
 

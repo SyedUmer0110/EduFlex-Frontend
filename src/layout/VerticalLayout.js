@@ -146,7 +146,7 @@ const VerticalLayout = ({ children }) => {
               icon: <SiGoogleclassroom />,
             },
             { name: "Attendance", route: "/attendance", icon: <FaUserCheck /> },
-            { name: "Add Attendance", route: "/addAttendance", icon: <FaUserCheck /> }, 
+            // { name: "Add Attendance", route: "/addAttendance", icon: <FaUserCheck /> }, 
             { name: "Marks", route: "/marks", icon: <BsFileRuled /> },
             {
               name: "Scholarships",
